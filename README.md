@@ -83,3 +83,29 @@ echo "Starting and enabling Docker service..."
 systemctl start docker
 systemctl enable docker
 ```
+
+# Jenkins Setup for Docker and Go Pipeline
+
+## Initial Jenkins Setup
+
+Once Jenkins is installed, visit `http://your-server-ip:8080` for the initial setup.
+
+### Required Plugins
+
+On Jenkins, install the following plugins:
+
+- Docker API
+- Docker Commons
+- Docker Pipeline
+- Docker
+- Go
+
+**Note:** After installing these plugins, a restart is required.
+
+### Docker Permissions for Jenkins
+
+To allow Jenkins to run Docker commands, add the Jenkins user to the Docker group with the following command:
+
+```bash
+sudo usermod -aG docker jenkins
+```
