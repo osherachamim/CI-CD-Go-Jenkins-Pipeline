@@ -109,3 +109,77 @@ To allow Jenkins to run Docker commands, add the Jenkins user to the Docker grou
 ```bash
 sudo usermod -aG docker jenkins
 ```
+
+## Restart Jenins Server 
+
+```bash
+sudo systemctl restart jenkins
+```
+# Jenkins CI/CD Pipeline for Go Application
+
+Before you begin, make sure Jenkins is up and running, and you have Docker installed on the server where Jenkins is running.
+
+## Setting Up the Pipeline
+
+Once Jenkins is up and running, follow these steps:
+
+1. **Configure Go in Jenkins:**
+   - Go to **"Manage Jenkins"** > **"Global Tool Configuration"**.
+   - Add a new Go installation and name it `go-1.23.0` (or the version you are using).
+
+2. **Create a New Pipeline Job:**
+   - Go to **"New Item"**, enter a name for your job, and choose **"Pipeline"**.
+   - Scroll down to the **"Pipeline"** section and paste the following script:
+
+   ```
+   pipeline {
+       agent any
+       tools {
+           go 'go-1.23.0'
+       }
+
+       stages {
+           stage('Clone Repo') {
+               steps {
+                   // Get the code from a GitHub repository
+                   git branch: 'main', url: 'https://github.com/osherjnks/go-app.git'
+               }
+           }
+
+           stage('Building Application Image') {
+               steps {
+                   script {
+                       // Build the Docker image
+                       app = docker.build("osherjnks/go-webapp-sample")
+                   }
+               }
+           }
+
+           stage('Running Application') {
+               steps {
+                   script {
+                       // Run the Docker container
+                       app.run("-p 8081:8081")
+                   }
+               }
+           }
+       }
+   }
+
+
+## Save and Build
+
+Save the pipeline and click **"Build Now"**.
+
+## What Does the Pipeline Do?
+
+The pipeline performs the following tasks:
+
+- **Clone the Repository:** Clones the Go application from the GitHub repository.
+- **Build Docker Image:** Builds a Docker image using the `Dockerfile` and `hello-world.go` provided in the repository.
+- **Run the Application:** Runs the application in a Docker container, exposing it on port `8081`.
+
+## Accessing the Application
+
+After the build completes, you can access the application by navigating to `http://your-server-ip:8081` in your web browser.
+
