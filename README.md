@@ -132,40 +132,52 @@ Once Jenkins is up and running, follow these steps:
    - Scroll down to the **"Pipeline"** section and paste the following script:
 
    ```
-   pipeline {
-       agent any
-       tools {
-           go 'go-1.23.0'
-       }
+    pipeline {
+    agent any
+    tools {
+        go 'go-1.23.0'
+    }
+    
+    environment {
+        GO111MODULE = 'off'
+    }
 
-       stages {
-           stage('Clone Repo') {
-               steps {
-                   // Get the code from a GitHub repository
-                   git branch: 'main', url: 'https://github.com/osherachamim/CI-CD-Go-Jenkins-Pipeline.git'
-               }
-           }
+    stages {
+        stage('Clone Repo') {
+            steps {
+                // Get the code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/osherachamim/CI-CD-Go-Jenkins-Pipeline.git'
+            }
+        }
 
-           stage('Building Application Image') {
-               steps {
-                   script {
-                       // Build the Docker image
-                       app = docker.build("osherachamim/go-webapp-sample")
-                   }
-               }
-           }
+        stage('Run Tests') {
+            steps {
+                script {
+                    // Run Go tests without Go modules
+                    sh 'go test ./...'
+                }
+            }
+        }
 
-           stage('Running Application') {
-               steps {
-                   script {
-                       // Run the Docker container
-                       app.run("-p 8081:8081")
-                   }
-               }
-           }
-       }
-   }
+        stage('Building Application Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    app = docker.build("osherachamim/go-webapp-sample")
+                }
+            }
+        }
 
+        stage('Running Application') {
+            steps {
+                script {
+                    // Run the Docker container
+                    app.run("-p 8081:8081")
+                }
+            }
+        }
+    }
+}
 
 ## Save and Build
 
