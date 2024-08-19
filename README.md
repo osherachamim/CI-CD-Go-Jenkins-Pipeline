@@ -180,6 +180,7 @@ Save the pipeline and click **"Build Now"**.
 The pipeline performs the following tasks:
 
 - **Clone the Repository:** Clones the Go application from the GitHub repository.
+- **Test the Code:** The test stage in the pipeline ensures code quality, catches issues early, and moves only verified code forward.
 - **Build Docker Image:** Builds a Docker image using the `Dockerfile` and `hello-world.go` provided in the repository.
 - **Run the Application:** Runs the application in a Docker container, exposing it on port `8081`.
 
