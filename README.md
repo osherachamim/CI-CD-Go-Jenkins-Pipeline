@@ -1,9 +1,9 @@
 # CI-CD-Go-Jenkins-Pipeline
-GoCI/CDFlow is a streamlined CI/CD pipeline project that automates the building and deployment of Go applications using Jenkins and Docker. It clones a Go repository, builds a Docker image, and runs the application in a container, showcasing an efficient continuous integration and delivery process.
+GoCI/CDFlow is a streamlined CI/CD pipeline project that automates the Testing building and deployment of Go applications using Jenkins and Docker. It clones a Go repository, builds a Docker image, and runs the application in a container, showcasing an efficient continuous integration and delivery process.
 
 # GoCI/CDFlow
 
-GoCI/CDFlow is a CI/CD pipeline project designed to automate the building and deployment of a simple Go application using Jenkins and Docker. This project showcases the integration of Jenkins, Docker, and Go in a seamless CI/CD process.
+GoCI/CDFlow is a CI/CD pipeline project designed to automate the Testing, building and deployment of a simple Go application using Jenkins and Docker. This project showcases the integration of Jenkins, Docker, and Go in a seamless CI/CD process.
 
 ## Tools Used
 
