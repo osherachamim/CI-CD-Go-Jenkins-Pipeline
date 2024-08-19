@@ -184,6 +184,8 @@ The pipeline performs the following tasks:
 - **Build Docker Image:** Builds a Docker image using the `Dockerfile` and `hello-world.go` provided in the repository.
 - **Run the Application:** Runs the application in a Docker container, exposing it on port `8081`.
 
+![Jenkins Pipline UI](Images/Jenkins-Pipeline.png)
+
 ## Accessing the Application
 
 After the build completes, you can access the application by navigating to `http://your-server-ip:8081` in your web browser.
@@ -331,5 +333,6 @@ sudo systemctl restart prometheus
 
 ### 3.Verify Jenkins Target in Prometheus UI
 Wait a few seconds for the Jenkins job to appear as "UP" in the Prometheus UI under **Status** -> **Targets**. You should see the Jenkins server listed among the targets.
+
 ![Jenkins in Prometheus UI](Images/Promethues_Target_Job.png)
 
