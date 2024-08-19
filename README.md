@@ -1,4 +1,4 @@
-# CI-CD-Go-Jenkins-Pipeline
+# CI-CD-Go-Jenkins-Pipeline-Monitoring
 GoCI/CDFlow is a streamlined CI/CD pipeline project that automates the Testing building and deployment of Go applications using Jenkins and Docker. It clones a Go repository, builds a Docker image, and runs the application in a container, showcasing an efficient continuous integration and delivery process.
 
 # GoCI/CDFlow
@@ -10,6 +10,7 @@ GoCI/CDFlow is a CI/CD pipeline project designed to automate the Testing, buildi
 - **Jenkins**: An open-source automation server that facilitates continuous integration and continuous delivery (CI/CD).
 - **Go**: A statically typed, compiled programming language designed for simplicity and efficiency.
 - **Docker**: A platform for developing, shipping, and running applications in containers.
+- **Promethues: rometheus is an open-source systems monitoring and alerting toolkit that provides powerful querying features and flexible alerting options.
 
 ## Setting Up Jenkins Server + Docker Engine
 
@@ -99,6 +100,7 @@ On Jenkins, install the following plugins:
 - Docker Pipeline
 - Docker
 - Go
+- Prometheus Metrics
 
 **Note:** After installing these plugins, a restart is required.
 
@@ -282,4 +284,47 @@ ufw allow 9090/tcp
 
 After the Script completes, you can access the application by navigating to `http://your-server-ip:9090` in your web browser.
 
+# Adding Jenkins Server to Prometheus
 
+## Overview
+
+This guide will walk you through the process of adding your Jenkins server to Prometheus for monitoring.
+
+## Prerequisites
+
+- You must have access to the Prometheus server.
+- Ensure Jenkins is running on your specified target IP and port.
+- Promethues Metrics Plugin should be install on your Jenkins server/
+
+## Steps to Add Jenkins to Prometheus
+
+### 1. Verify Prometheus Targets
+
+On your Prometheus server, navigate to **Status** -> **Targets**. You should see the server itself listed among the targets.
+
+### 2. Edit Prometheus Configuration
+
+To add your Jenkins server, follow these steps:
+
+1. Open the Prometheus configuration file:
+
+   ```bash
+   sudo vim /etc/prometheus/prometheus.yml
+   
+
+### 1. Edit Prometheus Configuration
+
+Add the following configuration under `scrape_configs`:
+
+```yaml
+- job_name: 'your job name'
+  metrics_path: '/prometheus/'
+  static_configs:
+    - targets: ['your_ip_server:8080']
+```
+### 2. Restart Prometheus
+After updating the configuration file, restart Prometheus to apply the changes:
+
+```bash
+sudo systemctl restart prometheus
+```
