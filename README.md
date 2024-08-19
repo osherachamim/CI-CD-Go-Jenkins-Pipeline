@@ -10,7 +10,7 @@ GoCI/CDFlow is a CI/CD pipeline project designed to automate the Testing, buildi
 - **Jenkins**: An open-source automation server that facilitates continuous integration and continuous delivery (CI/CD).
 - **Go**: A statically typed, compiled programming language designed for simplicity and efficiency.
 - **Docker**: A platform for developing, shipping, and running applications in containers.
-- **Promethues: rometheus is an open-source systems monitoring and alerting toolkit that provides powerful querying features and flexible alerting options.
+- **Promethues**: rometheus is an open-source systems monitoring and alerting toolkit that provides powerful querying features and flexible alerting options.
 
 ## Setting Up Jenkins Server + Docker Engine
 
@@ -311,7 +311,6 @@ To add your Jenkins server, follow these steps:
    ```bash
    sudo vim /etc/prometheus/prometheus.yml
    
-
 ### 1. Edit Prometheus Configuration
 
 Add the following configuration under `scrape_configs`:
@@ -328,3 +327,6 @@ After updating the configuration file, restart Prometheus to apply the changes:
 ```bash
 sudo systemctl restart prometheus
 ```
+
+### 3.Verify Jenkins Target in Prometheus UI
+Wait a few seconds for the Jenkins job to appear as "UP" in the Prometheus UI under **Status** -> **Targets**. You should see the Jenkins server listed among the targets.
