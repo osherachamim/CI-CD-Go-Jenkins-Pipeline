@@ -330,3 +330,5 @@ sudo systemctl restart prometheus
 
 ### 3.Verify Jenkins Target in Prometheus UI
 Wait a few seconds for the Jenkins job to appear as "UP" in the Prometheus UI under **Status** -> **Targets**. You should see the Jenkins server listed among the targets.
+![Jenkins in Prometheus UI](Images/Promethues_Target_Job.png)
+
