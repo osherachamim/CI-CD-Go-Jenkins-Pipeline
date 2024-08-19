@@ -142,7 +142,7 @@ Once Jenkins is up and running, follow these steps:
            stage('Clone Repo') {
                steps {
                    // Get the code from a GitHub repository
-                   git branch: 'main', url: 'https://github.com/osherjnks/go-app.git'
+                   git branch: 'main', url: 'https://github.com/osherachamim/CI-CD-Go-Jenkins-Pipeline.git'
                }
            }
 
@@ -150,7 +150,7 @@ Once Jenkins is up and running, follow these steps:
                steps {
                    script {
                        // Build the Docker image
-                       app = docker.build("osherjnks/go-webapp-sample")
+                       app = docker.build("osherachamim/go-webapp-sample")
                    }
                }
            }
