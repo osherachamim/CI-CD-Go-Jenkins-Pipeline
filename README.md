@@ -185,3 +185,101 @@ The pipeline performs the following tasks:
 
 After the build completes, you can access the application by navigating to `http://your-server-ip:8081` in your web browser.
 
+
+# Prometheus Setup on Ubuntu
+
+This guide provides a step-by-step process for setting up Prometheus on an Ubuntu server, tailored for DevOps professionals who need to monitor jobs and services effectively. Prometheus is an open-source systems monitoring and alerting toolkit that provides powerful querying features and flexible alerting options.
+
+To set up Prometheus on your server, run the following bash script:
+
+```bash
+#!/bin/bash
+
+# Step 1: Update System Packages
+echo "Updating system packages..."
+apt update -y
+apt upgrade -y
+
+
+# Proceed with other provisioning steps...
+
+# Step 2: Create a System User and Group for Prometheus
+echo "Creating Prometheus group and user..."
+groupadd --system prometheus
+useradd -s /sbin/nologin --system -g prometheus prometheus
+
+# Step 3: Create Directories for Prometheus
+echo "Creating directories for Prometheus..."
+mkdir /etc/prometheus
+mkdir /var/lib/prometheus
+
+# Step 4: Download Prometheus and Extract Files
+echo "Downloading Prometheus version 2.54.0..."
+wget https://github.com/prometheus/prometheus/releases/download/v2.54.0/prometheus-2.54.0.linux-amd64.tar.gz
+
+
+echo "Extracting Prometheus..."
+tar vxf prometheus*.tar.gz
+
+# Step 5: Move the Binary Files & Set Owner
+echo "Moving Prometheus binaries and setting ownership..."
+cd prometheus*/
+mv prometheus /usr/local/bin/
+mv promtool /usr/local/bin/
+chown prometheus:prometheus /usr/local/bin/prometheus
+chown prometheus:prometheus /usr/local/bin/promtool
+
+# Step 6: Move the Configuration Files & Set Owner
+echo "Moving Prometheus configuration files and setting ownership..."
+mv consoles /etc/prometheus
+mv console_libraries /etc/prometheus
+mv prometheus.yml /etc/prometheus
+chown prometheus:prometheus /etc/prometheus
+chown -R prometheus:prometheus /etc/prometheus/consoles
+chown -R prometheus:prometheus /etc/prometheus/console_libraries
+chown -R prometheus:prometheus /var/lib/prometheus
+
+# Step 7: Create Prometheus Systemd Service
+echo "Creating Prometheus systemd service file..."
+sudo bash -c 'cat <<EOF > /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \\
+    --config.file /etc/prometheus/prometheus.yml \\
+    --storage.tsdb.path /var/lib/prometheus/ \\
+    --web.console.templates=/etc/prometheus/consoles \\
+    --web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target
+EOF'
+
+# Step 8: Reload Systemd
+echo "Reloading systemd to apply the new Prometheus service..."
+systemctl daemon-reload
+
+# Step 9: Start and Enable Prometheus Service
+echo "Enabling and starting Prometheus service..."
+systemctl enable prometheus
+systemctl start prometheus
+
+# Step 10: Check Prometheus Service Status
+echo "Checking Prometheus service status..."
+systemctl status prometheus
+
+# Step 11: Allow Prometheus Port on Firewall
+echo "Allowing Prometheus port (9090) through the firewall..."
+ufw allow 9090/tcp
+```
+## Accessing Prometheus
+
+After the Script completes, you can access the application by navigating to `http://your-server-ip:9090` in your web browser.
+
+
