@@ -8,6 +8,7 @@ GoCI/CDFlow is a CI/CD pipeline project designed to automate the Testing, buildi
 ## Tools Used
 
 - **Jenkins**: An open-source automation server that facilitates continuous integration and continuous delivery (CI/CD).
+- **Jenkinsfile**: defines the steps of a Jenkins pipeline, automating the CI/CD process for building, testing, and deploying code.
 - **Go**: A statically typed, compiled programming language designed for simplicity and efficiency.
 - **Docker**: A platform for developing, shipping, and running applications in containers.
 - **Promethues**: rometheus is an open-source systems monitoring and alerting toolkit that provides powerful querying features and flexible alerting options.
