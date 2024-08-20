@@ -5,6 +5,8 @@ GoCI/CDFlow is a streamlined CI/CD pipeline project that automates the Testing b
 
 GoCI/CDFlow is a CI/CD pipeline project designed to automate the Testing, building and deployment of a simple Go application using Jenkins and Docker. This project showcases the integration of Jenkins, Docker, and Go in a seamless CI/CD process.
 
+![Project UI](Images/jenkins-CI/CD-project_dark.png)
+
 ## Tools Used
 
 - **Jenkins**: An open-source automation server that facilitates continuous integration and continuous delivery (CI/CD).
